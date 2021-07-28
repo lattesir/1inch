@@ -1,0 +1,19 @@
+{
+  "name": "@lattesir/1inch",
+  "version": "1.0.0",
+  "description": "1inch rest api",
+  "type": "module",
+  "main": "index.js",
+  "files": ["index.js"],
+  "publishConfig": {"access": "public"},
+  "repository": "github:lattesir/1inch",
+  "keywords": ["1inch", "ethereum", "polygon", "bsc"],
+  "author": "lattesir <lattesir@163.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1"
+  },
+  "devDependencies": {
+    "standard": "^16.0.3"
+  }
+}
