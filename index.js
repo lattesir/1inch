@@ -64,7 +64,7 @@ export class OneInch {
         return res.data
     }
 
-    async swap (fromTokenAddress, toTokenAddress, amount, fromAddress, slippage = 0.5,
+    async swap(fromTokenAddress, toTokenAddress, amount, fromAddress, slippage = 0.5,
         {
             protocols,
             destReceiver,
@@ -103,17 +103,17 @@ export class OneInch {
         return res.data
     }
 
-    async protocols () {
+    async protocols() {
         const res = await this._request('/protocols')
         return res.data
     }
 
-    async tokens () {
+    async tokens() {
         const res = await this._request('/tokens')
         return res.data
     }
 
-    _buildParams (required = {}, optional = {}) {
+    _buildParams(required = {}, optional = {}) {
         const params = {}
 
         for (const [key, value] of Object.entries(required)) {
