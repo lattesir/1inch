@@ -11,7 +11,7 @@ export class OneInchError extends Error {
 export class OneInchTimeoutError extends OneInchError {}
 
 export class OneInch {
-    constructor(chainId = 1, timeout = 5000) {
+    constructor(chainId = 1, timeout = 30000) {
         this.fetcher = axios.create({
             baseURL: `https://api.1inch.exchange/v3.0/${chainId}`,
             timeout: timeout,
