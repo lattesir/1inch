@@ -1,28 +1,35 @@
 {
   "name": "@lattesir/1inch",
-  "version": "1.0.2",
-  "description": "1inch rest api",
-  "type": "module",
-  "main": "index.js",
-  "files": [
-    "index.js"
-  ],
+  "version": "2.0.0",
+  "description": "1inch v4.0 api",
+  "main": "lib/index.js",
+  "scripts": {
+    "healthcheck": "node scripts/1inch.js healthcheck",
+    "approveSpender": "node scripts/1inch.js approveSpender",
+    "approveTransaction": "node scripts/1inch.js approveTransaction",
+    "approveAllowance": "node scripts/1inch.js approveAllowance",
+    "tokens": "node scripts/1inch.js tokens",
+    "token": "node scripts/1inch.js token",
+    "liquiditySources": "node scripts/1inch.js liquiditySources",
+    "presets": "node scripts/1inch.js presets",
+    "quote": "node scripts/1inch.js quote",
+    "swap": "node scripts/1inch.js swap",
+    "help": "node scripts/1inch.js help"
+  },
+  "bin": {
+    "1inch": "./scripts/1inch.js"
+  },
   "publishConfig": {
     "access": "public"
   },
   "repository": "github:lattesir/1inch",
-  "keywords": [
-    "1inch",
-    "ethereum",
-    "polygon",
-    "bsc"
-  ],
   "author": "lattesir <lattesir@163.com>",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.1"
-  },
-  "devDependencies": {
-    "standard": "^16.0.3"
+    "axios": "^0.21.1",
+    "commander": "^9.2.0",
+    "decimal.js-light": "^2.5.1",
+    "dotenv": "^16.0.1",
+    "ethers": "^5.6.5"
   }
 }
