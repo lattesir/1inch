@@ -56,32 +56,31 @@ async function swap(
     slippage,
     options
 ) {
-    console.log(options);
-    // const fromToken = await fetchToken(fromTokenSymbol);
-    // const toToken = await fetchToken(toTokenSymbol);
-    // const amount = toRawAmount(humanAmount, fromToken.decimals);
-    // const signer = getSigner();
-    // const fromAddress = await signer.getAddress();
-    // const response = await oneInch.swap(
-    //     fromToken.address,
-    //     toToken.address,
-    //     amount,
-    //     fromAddress,
-    //     slippage,
-    //     options
-    // );
+    const fromToken = await fetchToken(fromTokenSymbol);
+    const toToken = await fetchToken(toTokenSymbol);
+    const amount = toRawAmount(humanAmount, fromToken.decimals);
+    const signer = getSigner();
+    const fromAddress = await signer.getAddress();
+    const response = await oneInch.swap(
+        fromToken.address,
+        toToken.address,
+        amount,
+        fromAddress,
+        slippage,
+        options
+    );
         
-    // if (options.dryRun) {
-    //     const { fromTokenAmount, toTokenAmount } = response;
-    //     const price = calculatePrice(fromToken, fromTokenAmount, toToken, toTokenAmount);
-    //     console.log(JSON.stringify({...response, price}, "", 4));
-    // } else {
-    //     const txRequest = response.tx;
-    //     delete txRequest.gas;
-    //     const txResponse = await signer.sendTransaction(txRequest);
-    //     const txReceipt = await txResponse.wait();
-    //     console.log({ "transactionHash": txReceipt.transactionHash });
-    // }
+    if (options.dryRun) {
+        const { fromTokenAmount, toTokenAmount } = response;
+        const price = calculatePrice(fromToken, fromTokenAmount, toToken, toTokenAmount);
+        console.log(JSON.stringify({...response, price}, "", 4));
+    } else {
+        const txRequest = response.tx;
+        delete txRequest.gas;
+        const txResponse = await signer.sendTransaction(txRequest);
+        const txReceipt = await txResponse.wait();
+        console.log({ "transactionHash": txReceipt.transactionHash });
+    }
 }
 
 function toRawAmount(humanAmount, decimals) {

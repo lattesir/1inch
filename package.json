@@ -1,6 +1,6 @@
 {
   "name": "@lattesir/1inch",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "1inch v4.0 api",
   "main": "lib/index.js",
   "scripts": {
