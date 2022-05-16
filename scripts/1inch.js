@@ -56,31 +56,32 @@ async function swap(
     slippage,
     options
 ) {
-    const fromToken = await fetchToken(fromTokenSymbol);
-    const toToken = await fetchToken(toTokenSymbol);
-    const amount = toRawAmount(humanAmount, fromToken.decimals);
-    const signer = getSigner();
-    const fromAddress = await signer.getAddress();
-    const response = await oneInch.swap(
-        fromToken.address,
-        toToken.address,
-        amount,
-        fromAddress,
-        slippage,
-        options
-    );
+    console.log(options);
+    // const fromToken = await fetchToken(fromTokenSymbol);
+    // const toToken = await fetchToken(toTokenSymbol);
+    // const amount = toRawAmount(humanAmount, fromToken.decimals);
+    // const signer = getSigner();
+    // const fromAddress = await signer.getAddress();
+    // const response = await oneInch.swap(
+    //     fromToken.address,
+    //     toToken.address,
+    //     amount,
+    //     fromAddress,
+    //     slippage,
+    //     options
+    // );
         
-    if (options.dryRun) {
-        const { fromTokenAmount, toTokenAmount } = response;
-        const price = calculatePrice(fromToken, fromTokenAmount, toToken, toTokenAmount);
-        console.log(JSON.stringify({...response, price}, "", 4));
-    } else {
-        const txRequest = response.tx;
-        delete txRequest.gas;
-        const txResponse = await signer.sendTransaction(txRequest);
-        const txReceipt = await txResponse.wait();
-        console.log({ "transactionHash": txReceipt.transactionHash });
-    }
+    // if (options.dryRun) {
+    //     const { fromTokenAmount, toTokenAmount } = response;
+    //     const price = calculatePrice(fromToken, fromTokenAmount, toToken, toTokenAmount);
+    //     console.log(JSON.stringify({...response, price}, "", 4));
+    // } else {
+    //     const txRequest = response.tx;
+    //     delete txRequest.gas;
+    //     const txResponse = await signer.sendTransaction(txRequest);
+    //     const txReceipt = await txResponse.wait();
+    //     console.log({ "transactionHash": txReceipt.transactionHash });
+    // }
 }
 
 function toRawAmount(humanAmount, decimals) {
@@ -108,21 +109,6 @@ function calculatePrice(fromToken, fromTokenAmount, toToken, toTokenAmount) {
 function getSigner() {
     const provider = ethers.getDefaultProvider(process.env["1inch_rpcUrl"]);
     return new ethers.Wallet(process.env["1inch_privateKey"], provider);
-}
-
-function parseBool(s) {
-    switch(s.toLowerCase().trim()){
-        case "true":
-        case "yes":
-        case "1":
-            return true;
-        case "false":
-        case "no":
-        case "0":
-            return false;
-        default:
-            return Boolean(s);
-    }
 }
 
 async function main() {
@@ -166,7 +152,7 @@ async function main() {
     program
         .command("approveTransaction")
         .option("--human-amount <humanAmount>", "", undefined)
-        .option("--dry-run <dryRun>", "", false)
+        .option("--dry-run")
         .argument("<tokenSymbol>")
         .action(approveTransaction);
 
@@ -198,16 +184,16 @@ async function main() {
         .option("--referrer-address <referrerAddress>")
         .option("--fee <fee>", "", parseFloat)
         .option("--gas-price <gasPrice>")
-        .option("--disable-estimate <disableEstimate>", "", parseBool)
+        .option("--disable-estimate")
         .option("--permit <permit>")
-        .option("--burn-chi <burnChi>", "", parseBool)
-        .option("--allow-partial-fill <allowPartialFill>", "", parseBool)
+        .option("--burn-chi")
+        .option("--no-allow-partial-fill")
         .option("--parts <parts>", "", parseInt)
         .option("--main-route-parts <mainRouteParts>", "", parseInt)
         .option("--connector-tokens <connectorTokens>")
         .option("--complexity-level <complexityLevel>")
         .option("--gas-limit <gasLimit>", "", parseInt)
-        .option("--dry-run <dryRun>", "", parseBool, false)
+        .option("--dry-run")
         .argument("<fromTokenSymbol>")
         .argument("<toTokenSymbol>")
         .argument("<humanAmount>")

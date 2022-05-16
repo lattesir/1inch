@@ -1,6 +1,6 @@
 {
   "name": "@lattesir/1inch",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "1inch v4.0 api",
   "main": "lib/index.js",
   "scripts": {
@@ -18,9 +18,6 @@
   },
   "bin": {
     "1inch": "./scripts/1inch.js"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "repository": "github:lattesir/1inch",
   "author": "lattesir <lattesir@163.com>",
